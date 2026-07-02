@@ -1,44 +1,42 @@
-import { useState , useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Box from './Box';
 
+//金额数组
+const amounts = [
+  0.01,
+  1,
+  5,
+  10,
+  25,
+  50,
+  75,
+  100,
+  200,
+  300,
+  400,
+  500,
+  750,
+  1000,
+  5000,
+  10000,
+  25000,
+  50000,
+  75000,
+  100000,
+  200000,
+  300000,
+  400000,
+  500000,
+  750000,
+  1000000
+];
 
 export default function App() {
 
-  const [boxes, setBoxes] = useState(null);
-  var selectedBox = null;
+  const [boxes, setBoxes] = useState(createBoxes);
   const [remainingAmount, setRemainingAmount] = useState(3418416.01);
   const [offer, setOffer] = useState(0);
-
-  //金额数组
-  const amounts = [
-    0.01,
-    1,
-    5,
-    10,
-    25,
-    50,
-    75,
-    100,
-    200,
-    300,
-    400,
-    500,
-    750,
-    1000,
-    5000,
-    10000,
-    25000,
-    50000,
-    75000,
-    100000,
-    200000,
-    300000,
-    400000,
-    500000,
-    750000,
-    1000000
-  ];
 
   //生成随机金额盒子
   function createBoxes() {
@@ -67,11 +65,15 @@ export default function App() {
         return box;
       });
     });
-    selectedBox = boxId;
   }
 
   //打开盒子
   function handleBoxOpen(boxId) {
+    const openedBox = boxes.find(box => box.id === boxId);
+    if (!openedBox) {
+      return;
+    }
+
     setBoxes(prevBoxes => {
       return prevBoxes.map(box => {
         if (box.id === boxId) {
@@ -81,11 +83,13 @@ export default function App() {
       });
     });
     setRemainingAmount(prevAmount => {
-      const openedBox = boxes.find(box => box.id === boxId);
       return prevAmount - openedBox.amount;
     });
   }
 
+  const openedAmounts = new Set(
+    boxes.filter(box => box.opened).map(box => box.amount)
+  );
 
 
 
@@ -106,22 +110,33 @@ export default function App() {
   return (
     <div className="App">
       <h1>Deal or No Deal</h1>
-      <div className='awards' style={{ display: 'flex', justifyContent: 'center' }}>
+      {/* 左侧剩余金额 */}
+      <div className='awards'>
         <div>
           {amounts.slice(0, 13).map((amount, index) => (
-            <div key={index} className="award">
+            <div
+              key={index}
+              className={`award ${openedAmounts.has(amount) ? 'dimmed' : ''}`}
+              id={`award-${index}`}
+            >
               ${amount.toLocaleString()}
             </div>
           ))}
         </div>
         <div>
           {amounts.slice(13, 26).map((amount, index) => (
-            <div key={index} className="award">
+            <div
+              key={index}
+              className={`award ${openedAmounts.has(amount) ? 'dimmed' : ''}`}
+              id={`award-${index + 13}`}
+            >
               ${amount.toLocaleString()}
             </div>
           ))}
         </div>
       </div>
+
+      {/* 箱子区域 */}
       <div className="boxes">
         {boxes.map(box => (
           <Box
@@ -141,6 +156,8 @@ export default function App() {
           </Box>
         ))}
       </div>
+
+      {/* 右侧banker报价 */}
     </div>
   );
 
