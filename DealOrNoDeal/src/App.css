@@ -1,8 +1,11 @@
 .App {
   height: 100svh;
   box-sizing: border-box;
-  padding: 6px 18px 92px 260px;
+  padding: 8px 290px 14px 260px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   background:
     radial-gradient(circle at 72% 10%, rgba(255, 210, 86, 0.2), transparent 28%),
     linear-gradient(135deg, #3b0508 0%, #7c1118 46%, #240306 100%);
@@ -30,6 +33,7 @@
   text-shadow:
     0 2px 0 #7d2405,
     0 0 16px rgba(255, 211, 93, 0.85);
+  flex: 0 0 auto;
 }
 
 .awards {
@@ -66,6 +70,48 @@
 .awards > div {
   display: grid;
   gap: 7px;
+}
+
+.awards-header {
+  grid-column: 1 / -1;
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px !important;
+  position: relative;
+  z-index: 1;
+  padding: 0 4px 4px;
+  box-sizing: border-box;
+}
+
+.awards-header h2,
+.awards-header h3 {
+  margin: 0;
+  color: #ffe8a1;
+  font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 2px 0 #5a0609;
+}
+
+.awards-header h2 {
+  font-size: 18px;
+}
+
+.awards-header h3 {
+  font-size: 13px;
+}
+
+.awards-header select {
+  min-height: 30px;
+  width: 100%;
+  border: 2px solid #ffcf57;
+  border-radius: 6px;
+  background: #2b0205;
+  color: #ffe8a1;
+  font: 800 13px/1 system-ui, sans-serif;
+  padding: 4px 7px;
 }
 
 .award {
@@ -105,10 +151,18 @@
   text-shadow: none;
 }
 
-.boxes {
+.boxes-stage {
+  position: relative;
   width: min(100%, 886px);
-  height: calc(100svh - 152px);
+  flex: 1 1 auto;
+  min-height: 0;
   margin: 0 auto;
+}
+
+.boxes {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
   padding: 10px;
   box-sizing: border-box;
   display: grid;
@@ -124,6 +178,266 @@
     inset 0 0 0 3px #96131c,
     inset 0 0 40px rgba(0, 0, 0, 0.42),
     0 18px 34px rgba(0, 0, 0, 0.4);
+}
+
+.rules {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  overflow: auto;
+  padding: 34px clamp(18px, 5vw, 58px);
+  box-sizing: border-box;
+  border: 5px solid #ffcf57;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 207, 87, 0.18), transparent 38%),
+    linear-gradient(180deg, rgba(25, 2, 5, 0.97) 0%, rgba(91, 8, 15, 0.98) 52%, rgba(18, 1, 3, 0.98) 100%);
+  color: #fff7c2;
+  text-align: center;
+  box-shadow:
+    inset 0 0 0 3px #96131c,
+    inset 0 0 42px rgba(255, 207, 87, 0.16),
+    0 18px 34px rgba(0, 0, 0, 0.42);
+}
+
+.rules::before {
+  content: "";
+  position: absolute;
+  inset: 11px;
+  border: 1px solid rgba(255, 231, 158, 0.42);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.rules h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 4px;
+  color: #ffe8a1;
+  font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow:
+    0 2px 0 #65070b,
+    0 0 18px rgba(255, 211, 93, 0.78);
+}
+
+.rules p {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 680px);
+  margin: 0;
+  color: #fff7c2;
+  font: 800 clamp(13px, 1.45vw, 17px)/1.35 system-ui, sans-serif;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.rules button {
+  position: relative;
+  z-index: 1;
+  min-height: 42px;
+  margin-top: 8px;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 2px solid #fff0a9;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, #fff7c2 0%, #ffc83d 48%, #bb6307 100%);
+  color: #3a0700;
+  font: 900 16px/1 system-ui, sans-serif;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 4px 0 #5b0708,
+    0 0 16px rgba(255, 211, 93, 0.32);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.rules button:hover {
+  filter: brightness(1.06);
+}
+
+.banker-panel {
+  flex: 0 0 auto;
+  width: min(100%, 886px);
+  margin: 0 auto;
+  padding: 9px 14px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 4px solid #ffcf57;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, #130f12 0%, #322025 52%, #0a0708 100%);
+  color: #ffe8a1;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 207, 87, 0.25),
+    0 12px 26px rgba(0, 0, 0, 0.34);
+}
+
+.banker-panel h2,
+.banker-panel p {
+  margin: 0;
+}
+
+.banker-panel h2 {
+  color: #ffe8a1;
+  font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 2px 0 #5a0609;
+}
+
+.banker-panel p {
+  flex-basis: 100%;
+  color: #fff7c2;
+  font: 700 14px/1.2 system-ui, sans-serif;
+}
+
+.banker-offer {
+  min-width: 132px;
+  padding: 6px 12px;
+  border: 2px solid #fff0a9;
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, #fff7c2 0%, #ffc83d 48%, #bb6307 100%);
+  color: #3a0700;
+  font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.banker-actions,
+.negotiation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.banker-panel button,
+.banker-panel input {
+  min-height: 34px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  font: 800 14px/1 system-ui, sans-serif;
+}
+
+.banker-panel button {
+  cursor: pointer;
+  border: 2px solid #ffcf57;
+  background:
+    linear-gradient(180deg, #e33737 0%, #8f1018 58%, #4d050b 100%);
+  color: #ffe8a1;
+  padding: 6px 11px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 3px 0 #350306;
+}
+
+.banker-panel button:hover {
+  filter: brightness(1.08);
+}
+
+.banker-panel input {
+  width: 142px;
+  border: 2px solid #ffcf57;
+  background: #170f12;
+  color: #ffe8a1;
+  padding: 5px 8px;
+}
+
+.player-cash {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 5;
+  width: 190px;
+  max-width: calc(100vw - 28px);
+  padding: 12px 14px;
+  box-sizing: border-box;
+  border: 4px solid #ffcf57;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, #fff7c2 0%, #ffc83d 48%, #bb6307 100%);
+  color: #3a0700;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 0 0 2px rgba(91, 7, 8, 0.45),
+    0 12px 24px rgba(0, 0, 0, 0.38);
+}
+
+.player-cash h2 {
+  margin: 0;
+  color: inherit;
+  font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+  font-size: 18px;
+  line-height: 1.12;
+  font-weight: 900;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.52);
+}
+
+.banker-image {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  z-index: 4;
+  width: 245px;
+  max-width: calc(100vw - 28px);
+  max-height: calc(100svh - 220px);
+  object-fit: contain;
+  transform: translateY(-50%) scaleY(1.12);
+  transform-origin: center center;
+  filter:
+    drop-shadow(0 14px 18px rgba(0, 0, 0, 0.48))
+    drop-shadow(0 0 18px rgba(255, 207, 87, 0.22));
+  pointer-events: none;
+}
+
+.banker-status {
+  position: fixed;
+  right: 14px;
+  top: max(12px, calc(50% - 265px));
+  z-index: 6;
+  width: 245px;
+  max-width: calc(100vw - 28px);
+  padding: 9px 10px;
+  box-sizing: border-box;
+  border: 3px solid #ffcf57;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, #42040a 0%, #a4111b 52%, #3a0308 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(110, 7, 15, 0.9),
+    0 10px 20px rgba(0, 0, 0, 0.34);
+}
+
+.banker-status h3 {
+  margin: 0;
+  color: #ffe8a1;
+  font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+  font-size: 18px;
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 2px 0 #5a0609;
 }
 
 .box {
@@ -282,11 +596,14 @@
   .App {
     padding-left: 194px;
     padding-right: 8px;
+    padding-bottom: 82px;
+    gap: 6px;
   }
 
   .App h1 {
     font-size: 28px;
     padding-inline: 18px;
+    margin-bottom: 0;
   }
 
   .awards {
@@ -308,11 +625,83 @@
     padding-inline: 3px;
   }
 
-  .boxes {
-    height: calc(100svh - 120px);
+  .awards-header {
+    gap: 4px !important;
+    padding-inline: 2px;
+  }
+
+  .awards-header h2 {
+    font-size: 14px;
+  }
+
+  .awards-header h3 {
+    font-size: 10px;
+  }
+
+  .awards-header select {
+    min-height: 25px;
+    font-size: 11px;
+    padding-block: 2px;
+  }
+
+  .boxes-stage {
     width: min(100%, 620px);
+  }
+
+  .boxes {
     padding: 7px;
     gap: 6px;
+  }
+
+  .rules {
+    gap: 7px;
+    padding: 22px 18px;
+  }
+
+  .rules h3 {
+    font-size: 25px;
+  }
+
+  .rules p {
+    font-size: 12px;
+    line-height: 1.28;
+  }
+
+  .rules button {
+    min-height: 36px;
+    padding: 7px 15px;
+    font-size: 13px;
+  }
+
+  .banker-panel {
+    width: min(100%, 620px);
+    gap: 6px;
+    padding: 7px 8px;
+  }
+
+  .banker-panel h2 {
+    font-size: 17px;
+  }
+
+  .banker-offer {
+    min-width: 104px;
+    font-size: 18px;
+    padding: 5px 8px;
+  }
+
+  .banker-actions,
+  .negotiation {
+    gap: 5px;
+  }
+
+  .banker-panel button,
+  .banker-panel input {
+    min-height: 30px;
+    font-size: 12px;
+  }
+
+  .banker-panel input {
+    width: 116px;
   }
 
   .box {
@@ -320,4 +709,85 @@
     padding: 5px 5px 4px;
   }
 
+  .player-cash {
+    right: 8px;
+    bottom: 8px;
+    width: 170px;
+    padding: 9px 10px;
+  }
+
+  .player-cash h2 {
+    font-size: 15px;
+  }
+
+  .banker-image {
+    right: 8px;
+    top: 50%;
+    width: 178px;
+    max-height: calc(100svh - 180px);
+  }
+
+  .banker-status {
+    right: 8px;
+    top: max(8px, calc(50% - 205px));
+    width: 178px;
+    padding: 7px 8px;
+  }
+
+  .banker-status h3 {
+    font-size: 13px;
+  }
+}
+
+@media (max-height: 640px) {
+  .App {
+    padding-top: 5px;
+    padding-bottom: 8px;
+    gap: 5px;
+  }
+
+  .App h1 {
+    font-size: 28px;
+    padding-block: 4px 5px;
+    margin-bottom: 0;
+  }
+
+  .boxes {
+    padding: 7px;
+    gap: 6px;
+  }
+
+  .banker-panel {
+    padding-block: 6px;
+  }
+
+  .banker-panel h2 {
+    font-size: 18px;
+  }
+
+  .banker-offer {
+    font-size: 19px;
+    padding-block: 5px;
+  }
+
+  .box {
+    grid-template-rows: minmax(0, 1fr) 20px;
+    padding: 5px 5px 4px;
+  }
+
+  .banker-image {
+    top: 50%;
+    width: 180px;
+    max-height: calc(100svh - 150px);
+  }
+
+  .banker-status {
+    top: max(6px, calc(50% - 190px));
+    width: 180px;
+    padding-block: 6px;
+  }
+
+  .banker-status h3 {
+    font-size: 14px;
+  }
 }
