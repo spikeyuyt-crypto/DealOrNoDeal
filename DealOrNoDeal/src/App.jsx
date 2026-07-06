@@ -338,6 +338,12 @@ export default function App() {
 
   function handleDeal() {
     settleDeal(bankerDeal.offer);
+    setBoxes(prevBoxes =>
+      prevBoxes.map(box => ({
+        ...box,
+        opened: true
+      }))
+    );
   }
 
   function handleNoDeal() {
@@ -348,7 +354,13 @@ export default function App() {
     if (gameStatus === GameStatus.FinalOffer) {
       const selectedBox = boxes.find(box => box.selected);
       const finalAmount = selectedBox ? selectedBox.amount : 0;
-      settleDeal(finalAmount, `No Deal. Your box contained $${finalAmount.toLocaleString()}.`);
+      setBoxes(prevBoxes =>
+        prevBoxes.map(box => ({
+          ...box,
+          opened: true
+        }))
+      );
+      settleDeal(finalAmount, `不成交,你拿到了箱子里的 $${finalAmount.toLocaleString()}.`);
       return;
     }
 
@@ -416,8 +428,8 @@ export default function App() {
   const isGameFinished = gameStatus === GameStatus.Finished;
 
 
-  useEffect(() => {setDisplayRules(true)}, []);
-  
+  useEffect(() => { setDisplayRules(true) }, []);
+
 
 
   //返回视图
@@ -481,8 +493,8 @@ export default function App() {
           {isBankerPhase && (
             <>
               <div className="banker-actions">
-                <button type="button" onClick={handleDeal}>Deal</button>
-                <button type="button" onClick={handleNoDeal}>No Deal</button>
+                <button type="button" onClick={handleDeal}>成交！</button>
+                <button type="button" onClick={handleNoDeal}>不成交！</button>
               </div>
               {!hasNegotiated && (
                 <div className="negotiation">
@@ -493,14 +505,14 @@ export default function App() {
                     onChange={e => setCounterOffer(e.target.value)}
                     placeholder="Counter offer"
                   />
-                  <button type="button" onClick={handleNegotiate}>Negotiate</button>
+                  <button type="button" onClick={handleNegotiate}>讲价</button>
                 </div>
               )}
             </>
           )}
           {isGameFinished && (
             <div className="banker-actions">
-              <button type="button" onClick={handleRestartGame}>New Game</button>
+              <button type="button" onClick={handleRestartGame}>新游戏</button>
             </div>
           )}
         </div>
@@ -529,13 +541,13 @@ export default function App() {
 
         {displayRules && (
           <div className="rules">
-            <h3>Game Rules</h3>
-            <p>1. Choose one case as your own. You cannot open it until the end.</p>
-            <p>2. Open the remaining cases to reveal their hidden amounts.</p>
-            <p>3. After each round, the banker will make an offer.</p>
-            <p>4. Accept the offer to lock in the deal, or reject it and keep playing.</p>
-            <p>5. You can negotiate with the banker once during the game.</p>
-            <p>6. The game ends when you accept a deal or keep your own final case.</p>
+            <h3>游戏规则</h3>
+            <p>1.支付入场费后选择一个箱子，其中的现金谁也不知道是多少</p>
+            <p>2.在每一轮，你将打开剩余的箱子，排除错误选项</p>
+            <p>3.在每一轮结束后，银行家会给你报价试图买走你手里的箱子</p>
+            <p>4.你可以选择接受银行家的报价，或者拒绝并继续游戏</p>
+            <p>5.在整个游戏过程中，你有且仅有一次跟银行家进行讲价的机会</p>
+            <p>6.在最后一轮，你将面对最终报价，如果你拒绝，你将打开你选择的箱子，获得其中的现金</p>
             <button type="button" onClick={() => setDisplayRules(false)}>Start Game</button>
           </div>
         )}
